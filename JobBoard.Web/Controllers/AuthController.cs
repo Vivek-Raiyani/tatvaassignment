@@ -116,8 +116,17 @@ public class AuthController : Controller
             }
 
             message = _userServices.RegisterEmployer(employer);
-
-            return RedirectToAction("Index", "Auth");
+            if (string.IsNullOrEmpty(message))
+            {
+                TempData["success"] = "Registration successfull!";
+                return RedirectToAction("Index", "Auth");
+            }
+            else
+            {
+                TempData["success"] = message;
+                return View("../Auth/RegisterEmployerPV", employer);
+            }
+            
         }
 
         return View("../Auth/RegisterEmployerPV", employer);

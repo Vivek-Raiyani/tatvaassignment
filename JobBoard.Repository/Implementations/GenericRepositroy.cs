@@ -20,13 +20,15 @@ public class GenericRepositroy<T> : IGenericRepository<T> where T : class
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
+            return string.Empty;
 
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+            return "Error occured during Registration!";
         }
-        return string.Empty;
+        
     }
 
     public async Task<string> Update(T obj)
@@ -35,12 +37,14 @@ public class GenericRepositroy<T> : IGenericRepository<T> where T : class
         {
             _context.Update(obj);
             await _context.SaveChangesAsync();
+             return string.Empty;
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+            return "Error occured during Saving changes!";
         }
-        return string.Empty;
+       
     }
 
     public async Task<List<T>> ReadAll(params Expression<Func<T, object>>[] includes)
