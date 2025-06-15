@@ -1,0 +1,149 @@
+@model JobForm
+
+@{
+    ViewData["Title"] = "Add Opening";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header p-3">
+        <div class="container-fluid">
+            <div class="row gy-3 mb-2">
+                <div class="col-sm-6">
+                    <h1>@(Model.Id > 0 ? "Edit Job Details" : "Add New Opening")</h1>
+                </div>
+                <div class="col-sm-6 text-end">
+                    <a href="/Employer/" class="btn btn-outline-primary">Back</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content p-3" id="">
+
+        <div class="d-flex gap-3 mb-3 align-items-center">
+            <div class="rounded">
+                <img src="@Model.CompanyLogo" class="rounded-circle" alt="Logo" height="70px" width="70px">
+            </div>
+            <h5>@Model.CompanyName</h5>
+        </div>  
+
+        <form asp-action="@(Model.Id > 0 ? "EditJob" : "AddJob")" asp-controller="Employer" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="Id">
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Title" placeholder="name@example.com">
+                <label asp-for="Title">Job Title</label>
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Job Description" asp-for="Description"
+                    style="height: 100px"></textarea>
+                <label asp-for="Description">Job Description</label>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+
+            <div class="row gy-3 mb-3">
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        <select class="form-select" asp-for="CategoryId" aria-label="Floating label select example" data-value=@Model.CategoryId>
+                            <option selected disabled>Select Country</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label asp-for="CategoryId">Category</label>
+                        <span class="text-danger" asp-validation-for="CategoryId"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        <select class="form-select" asp-for="MinExperience" aria-label="Floating label select example">
+                            <option selected disabled>Select Minimum Experience</option>
+                            <option value="0">Freshers</option>
+                            <option value="1">1 Year</option>
+                            <option value="2">2 Year</option>
+                            <option value="3">3 Year</option>
+                            <option value="4">4 Year</option>
+                            <option value="5">5 Year</option>
+                            <option value="6">5+ Year</option>
+                        </select>
+                        <label asp-for="MinExperience">Minimum Experience</label>
+                        <span class="text-danger" asp-validation-for="MinExperience"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" asp-for="Salary" placeholder="Salary" value=@(Model.Salary >0 ? Model.Salary : "")>
+                <label asp-for="Salary">Salary</label>
+                <span class="text-danger" asp-validation-for="Salary"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                @if(Model.Deadline.Year>1)
+                {
+                    <input type="date" class="form-control" asp-for="Deadline" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" >
+                }
+                else{
+                    <input type="date" class="form-control" asp-for="Deadline" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" value="">
+                }
+                
+                <label asp-for="Deadline">Deadline</label>
+                <span class="text-danger" asp-validation-for="Deadline"></span>
+            </div>
+
+            <section class="row gy-3 mb-3">
+                <section class="col-sm-4">
+                    <div class="form-floating">
+                        <select class="form-select" asp-for="CountryId" aria-label="Floating label select example" data-value=@Model.CountryId>
+                            <option selected disabled>Select Country</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label asp-for="CountryId">Country</label>
+                        <span class="text-danger" asp-validation-for="CountryId"></span>
+                    </div>
+                </section>
+                <section class="col-sm-4">
+                    <div class="form-floating">
+                        <select class="form-select" asp-for="StateId" aria-label="Floating label select example" data-value=@Model.StateId>
+                            <option selected disabled>Select State</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label asp-for="StateId">State</label>
+                        <span class="text-danger" asp-validation-for="StateId"></span>
+                    </div>
+                </section>
+                <section class="col-sm-4">
+                    <div class="form-floating">
+                        <select class="form-select" asp-for="CityId" aria-label="Floating label select example" data-value=@Model.CityId>
+                            <option selected disabled>Select City</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label asp-for="CityId">City</label>
+                        <span class="text-danger" asp-validation-for="CityId"></span>
+                    </div>
+                </section>
+            </section>
+
+            <section class="d-flex justify-content-center gap-3 mb-3 mt-4">
+                <button type="submit" class="btn btn-primary w-100">Create Opening</button>
+            </section>
+
+        </form>
+        
+    </section>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/countrydropdown.js" asp-append-version="true"></script>
+}

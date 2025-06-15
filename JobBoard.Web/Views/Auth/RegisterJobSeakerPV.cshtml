@@ -1,0 +1,145 @@
+@model RegisterJobSeaker
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Register";
+}
+
+<section class="register-page" >
+    <div class="register-box m-5">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="/Home/Index" class="h1">Job Board</a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Register a new membership</p>
+
+                <form asp-action="RegisterJobSeeker" asp-controller="Auth" class="container" enctype="multipart/form-data" method="post">
+                    
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" asp-for="Email" placeholder="name@example.com">
+                        <label asp-for="Email">Email</label>
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                        <label asp-for="Password">Password</label>
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    
+                    <section class="row mb-3">
+                        <section class="col-sm-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="FName" placeholder="Password">
+                                <label asp-for="FName">First Name</label>
+                                <span class="text-danger" asp-validation-for="FName"></span>
+                            </div>
+                        </section>
+                        <section class="col-sm-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="LName" placeholder="Password">
+                                <label asp-for="LName">Last Name</label>
+                                <span class="text-danger" asp-validation-for="LName"></span>
+                            </div>
+                        </section>
+                    </section>
+                    
+                    <section class="row mb-3">
+                        <section class="col-sm-4">
+                            <div class="form-floating">
+                                <select class="form-select" asp-for="CountryId"
+                                    aria-label="Floating label select example">
+                                    <option selected disabled>Select Country</option>
+                                </select>
+                                <label asp-for="CountryId">Country</label>
+                                <span class="text-danger" asp-validation-for="CountryId"></span>
+                            </div>
+                        </section>
+                        <section class="col-sm-4">
+                            <div class="form-floating">
+                                <select class="form-select" asp-for="StateId"
+                                    aria-label="Floating label select example">
+                                    <option selected disabled>Select State</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <label asp-for="StateId">State</label>
+                                <span class="text-danger" asp-validation-for="StateId"></span>
+                            </div>
+                        </section>
+                        <section class="col-sm-4">
+                            <div class="form-floating">
+                                <select class="form-select" asp-for="CityId" aria-label="Floating label select example">
+                                    <option selected disabled>Select City</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <label asp-for="CityId">City</label>
+                                <span class="text-danger" asp-validation-for="CityId"></span>
+                            </div>
+                        </section>
+                    </section>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">Profile Pic</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" asp-for="Profile">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <section class="row mb-3">
+                        <section class="col-sm-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="Address" placeholder="Password">
+                                <label asp-for="Address">Address</label>
+                                <span class="text-danger" asp-validation-for="Address"></span>
+                            </div>
+                        </section>
+                        <section class="col-sm-6">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" asp-for="ZipCode" placeholder="Password">
+                                <label asp-for="ZipCode">Zip Code</label>
+                                <span class="text-danger" asp-validation-for="ZipCode"></span>
+                            </div>
+                        </section>
+                    </section>
+
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" asp-for="DOB" placeholder="Password">
+                        <label asp-for="DOB">Date of Birth</label>
+                        <span class="text-danger" asp-validation-for="DOB"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" asp-for="Phone" placeholder="Password">
+                        <label asp-for="Phone">Phone</label>
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile">Resume</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" asp-for="Resume">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="/Auth/Index" class="text-center">I already have an Account?</a>
+
+                    <section class="d-flex justify-content-center gap-3 mb-3 mt-2">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </section>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

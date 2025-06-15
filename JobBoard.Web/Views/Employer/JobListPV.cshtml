@@ -1,0 +1,107 @@
+@model Paginate<EmployerJobList>
+
+
+<div class="col-sm-12 table-responsive">
+    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+        <thead>
+            <tr>
+                <th>
+                    Sr.no
+                </th>
+                <th>
+                    Job Title
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Deadline
+                </th>
+                <th>
+                    Application
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < (Model.Items.Count); i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Items[i].Id
+                    </td>
+                    <td>
+                        @Model.Items[i].Title
+                    </td>
+                    <td>
+                        @Model.Items[i].Category
+                    </td>
+                    <td>
+                        @Model.Items[i].Deadline.Date
+                    </td>
+                    <td>
+                        @Model.Items[i].Applicants
+                    </td>
+                    <td>
+                        @Model.Items[i].Status
+                    </td>
+                    <td class="d-flex justify-content-center gap-3">
+                        <a class="btn btn-outline-primary"
+                            href="@Url.Action("EditJob", "Employer", new { jobId = Model.Items[i].Id })"><i
+                                class="bi bi-pencil-square"></i></a>
+                        <button class="btn btn-outline-danger Deletebtn" data-id=@Model.Items[i].Id><i
+                                class="bi bi-trash3"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class=" d-flex justify-content-end">
+        <div>
+            Showing <span class="currentpage">@Model.PageIndex</span> of <span class="totalpage">@Model.TotalPages</span>
+        </div>
+        <button class="btn btn-outline-secondary previous"><<</button>
+        <button class="btn btn-outline-secondary nextbtn" >>></button>
+     </div>
+</div>
+
+    <script>
+    $(document).ready(function(){
+        
+       
+        $(document).off("click").on("click", ".nextbtn",function(){
+            console.log("next btn click");
+            let currentpage = $(".currentpage").html();
+            let totalpage = $(".totalpage").html();
+            currentpage++;
+            console.log(currentpage)
+            if(currentpage<=totalpage)
+            {
+                $.ajax({
+                url: "/Employer/PaginateList",
+                type: "POST",
+                data: { "Page": parseInt(currentpage), "PageSize" : 1, "Search" : "","CategoryId" : 0,"CountryId" : 0},
+                success: function (response) {
+                    $("#JobList").html(response);
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
+            });
+            }
+            
+        })
+    });
+
+     $(document).off("click").on("click", ".previous",function(){
+            console.log("previous btn click");
+    });
+
+
+        
+    </script>
